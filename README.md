@@ -2,9 +2,16 @@
 
 > easy way to pack and unpack your data
 
+## install
+
+``` bash
+yarn add formism
+```
+
 ## pack your data to FormData
 
 ``` javascript
+import { pack } from 'formism';
 
 const sourceObj = [{
   deep: {
@@ -15,14 +22,14 @@ const sourceObj = [{
   },
 }];
 
-const formData = formism(sourceObj); // output a FormData instance
+const formData = pack(sourceObj); // output a FormData instance
 
 ```
 
 ## unpack FormData
 
 ``` javascript
+import { unpack } from 'formism';
 
-const recoveredObj = parse(formData);
-
+const recoveredObj = unpack(formData);
 ```

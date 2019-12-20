@@ -5,7 +5,7 @@ const createFileLink = index => `${FILE_PREFIX}${index}`;
 
 const isFileLink = unknown => typeof unknown === 'string' && unknown.indexOf(FILE_PREFIX) === 0 && !Number.isNaN(unknown.slice(FILE_PREFIX.length))
 
-const formism = (data) => {
+const pack = (data) => {
   try {
     const blobs = [];
     let id = 0;
@@ -31,7 +31,7 @@ const formism = (data) => {
   }
 }
 
-const parse = (formData) => {
+const unpack = (formData) => {
   if (!formData instanceof FormData) {
     throw new Error('not an instance of FormData');
   }
@@ -57,4 +57,9 @@ const parse = (formData) => {
   } catch(e) {
     throw new Error('unable to parse data');
   }
+}
+
+module.exports = {
+  pack,
+  unpack
 }

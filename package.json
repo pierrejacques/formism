@@ -1,6 +1,6 @@
 {
   "name": "formism",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "formdata parse and convert",
   "main": "index.js",
   "scripts": {
