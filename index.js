@@ -27,7 +27,21 @@ const pack = (data) => {
     });
     return formData;
   } catch(e) {
-    throw new Error('unable to stringify data');
+    throw new Error('unable to pack data');
+  }
+}
+
+const parse = (input) => {
+  try {
+    const series = input[OBJ_KEY];
+    return JSON.parse(series, (field, data) => {
+      if (isFileLink(data)) {
+        return input[data];
+      }
+      return data;
+    });
+  } catch(e) {
+    throw new Error('unable to parse input');
   }
 }
 
@@ -36,30 +50,18 @@ const unpack = (formData) => {
     throw new Error('not an instance of FormData');
   }
   try {
-    const blobs = {};
-    let series;
+    const dict = {};
     for (let key of formData.keys()) {
-      if (key === OBJ_KEY) {
-        series = formData.get(key);
-      }
-      if (isFileLink(key)) {
-        blobs[key] = formData.get(key);
-      }
+      dict[key] = formData.get(key);
     }
-    const rawObject = JSON.parse(series, (field, data) => {
-      if (isFileLink(data)) {
-        return blobs[data];
-      }
-      return data;
-    });
-    return rawObject;
-
+    return parse(dict);
   } catch(e) {
-    throw new Error('unable to parse data');
+    throw new Error('unable to unpack data');
   }
 }
 
 module.exports = {
   pack,
+  parse,
   unpack
 }
