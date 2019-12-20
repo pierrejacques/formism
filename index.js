@@ -63,5 +63,6 @@ const unpack = (formData) => {
 module.exports = {
   pack,
   parse,
-  unpack
+  unpack,
+  OBJ_KEY,
 }
